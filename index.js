@@ -30,12 +30,35 @@ let algorithms = {
 };
 
 let inputSettings = {
+  theInput: "",
   storeInput: function(input) {
-    let theInput = input;
-
-    return theInput;
+    this.theInput = input;
+    return this.theInput;
   },
-  inputVersion: function(input) {},
+  getInput: function() {
+    console.log("the input" + this.theInput);
+    return this.theInput;
+  },
+  inputVersion: function() {
+    let isNum = /^\d+$/.test(this.theInput);
+    let isNumAndChar = /^[a-zA-Z0-9_.-]*$/.test(this.theInput);
+    let isNumAndWhiteSpaceAndChar = /^[a-zA-Z0-9_ ]*$/.test(this.theInput);
+    let isOnlyLet = /^[a-zA-Z]+$/.test(this.theInput);
+
+    if (isNum == true) {
+      return console.log("Only Numbers: " + this.outputTheArray(this.theInput));
+    } else if (isNumAndChar == true) {
+      let newValue = this.theInput.replace(/\D/g, "");
+      return console.log(
+        "Numbers and Characters: " + this.outputTheArray(newValue)
+      );
+    } else if (isNumAndWhiteSpaceAndChar == true) {
+      let newValue = this.theInput.replace(/\D/g, "");
+      return console.log(
+        "Numbers, White Space and Characters: " + this.outputTheArray(newValue)
+      );
+    }
+  },
   outputTheArray: function(input) {
     let valueArray = [];
     valueArray = algorithms.permutation(input);
@@ -48,45 +71,33 @@ let inputSettings = {
 
 test = {
   testIfNum: function(input) {
-    let isNum = /^\d+$/.test(input);
-    // inputSettings.storeInput(isNum);
+    inputSettings.theInput = input;
+    inputSettings.inputVersion();
 
-    if (isNum == true) {
-      console.log("is it a number? : " + isNum);
-      console.log(inputSettings.outputTheArray(input));
-    }
+    //let sendInput = inputSettings.inputVersion(input);
   },
   testIfNumAndStr: function(input) {
-    let isNumAndChar = /^[a-zA-Z0-9_.-]*$/.test(input);
-
-    if (isNumAndChar == true) {
-      console.log("does it contain numbers and letters? : " + isNumAndChar);
-    }
+    inputSettings.theInput = input;
+    inputSettings.inputVersion();
+    // if (isNumAndChar == true) {
+    //   console.log("does it contain numbers and letters? : " + isNumAndChar);
+    // }
   },
   testifNumAndWsAndChar: function(input) {
-    let value = /^[a-zA-Z0-9_ ]*$/.test(input);
-    if (value == true) {
-      console.log(
-        "does it contain numbers, letters and white space? : " + value
-      );
-
-      //let stripValues = input.replace(/\D/g, "");
-    }
+    inputSettings.theInput = input;
+    inputSettings.inputVersion();
   },
   testIfOnlyStr: function(input) {
-    let isLet = /^[a-zA-Z]+$/.test(input);
-    if (isLet == true) {
-      console.log("does it only contain letters? : " + isLet);
-      console.log("no decimals detected, please input a decimal.");
-    }
+    inputSettings.theInput = input;
+    //inputSettings.inputVersion();
   }
 };
 
 // ----------------------------------------------
 test.testIfNum(numb);
-//test.testIfNumAndStr(numbAndStr);
-//test.testifNumAndWsAndChar(numbAndWsAndStr);
-//test.testIfOnlyStr(onlyStr);
+test.testIfNumAndStr(numbAndStr);
+test.testifNumAndWsAndChar(numbAndWsAndStr);
+test.testIfOnlyStr(onlyStr);
 // ----------------------------------------------
 
 function solution(input) {
@@ -101,26 +112,6 @@ function solution(input) {
   let isNum = /^\d+$/.test(input);
   let isNumAndChars = 0;
   let isLet = /^[a-zA-Z]+$/.test(input);
-
-  // an array - to hold the values that are to be inputted from the parameter
-  let values = [];
-
-  // if statement to validate the values that are passed through, whether with ints, no ints, etc.
-  // if so, for either, push into array.
-
-  if (isNum) {
-    // if it only contains decimals.
-    //console.log(isNum);
-  } else if (isLet) {
-    // if it contains letters
-  } else {
-  }
-  // else if (input == "number values and AND-Siblings") {
-
-  //}
-  // else { -- if only AND-Siblings
-  //
-  //}
 
   return null;
 }
